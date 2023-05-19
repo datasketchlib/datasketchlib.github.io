@@ -1,41 +1,179 @@
-  <style>
-    /* CSS for sidebar */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    
-    #sidebar {
-      position: fixed;
-      width: 250px;
-      height: 100%;
-      background-color: #f6f6f6;
-      color: #222;
-      padding-top: 20px;
-    }
-    
-    #sidebar ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    #sidebar ul li {
-      padding: 10px;
-    }
-    
-    #sidebar ul li a {
-      color: #222;
-      text-decoration: none;
-      display: block;
-    }
-    
-    #sidebar ul li:hover {
-      background-color: #e8e8e8;
-    }
-    
-    #content {
-      margin-left: 250px;
-      padding: 20px;
-    }
-  </style>
+Certainly! Here's the modified CSS code to make the page wider:
+
+```css
+/* Wikipedia-like CSS */
+
+/* Reset default styles */
+body, figure, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, li, dt, dd, pre, blockquote, form, fieldset, input, textarea, table, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* Set basic font styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* Add some spacing */
+body {
+  margin: 20px;
+}
+
+/* Style headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+/* Style paragraphs */
+p {
+  margin-bottom: 10px;
+}
+
+/* Style links */
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Style lists */
+ul, ol {
+  margin-bottom: 10px;
+}
+
+li {
+  margin-left: 20px;
+}
+
+/* Style blockquotes */
+blockquote {
+  margin: 10px 0;
+  padding-left: 20px;
+  border-left: 2px solid #ccc;
+  font-style: italic;
+}
+
+/* Style tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+th, td {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Style images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Style code blocks */
+pre {
+  background-color: #f5f5f5;
+  padding: 10px;
+  overflow: auto;
+  font-family: "Courier New", Courier, monospace;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #f5f5f5;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* Style the Wikipedia-like container */
+.container {
+  max-width: 1200px; /* Adjust the value as per your desired width */
+  margin: 0 auto;
+}
+
+/* Style the Wikipedia-like content */
+.content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+/* Style the Wikipedia-like main content */
+.main-content {
+  flex: 1;
+}
+
+/* Style the Wikipedia-like side navigation */
+.side-navigation {
+  width: 250px;
+  background-color: #f6f6f6;
+  padding: 10px;
+  margin-right: 20px;
+  border-radius:  5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.side-navigation h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.side-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-navigation li {
+  margin-bottom: 5px;
+}
+
+/* Style the Wikipedia-like footer */
+.footer {
+  background-color: #f6f6f6;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}

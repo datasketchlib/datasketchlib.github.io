@@ -1,179 +1,139 @@
 <!DOCTYPE html>
 <html>
-<head>
-  
-  <script type="module" src="https://md-block.verou.me/md-block.js"></script>
-  <script>import {URLs as MdBlockURLS, MarkdownBlock, MarkdownSpan, MarkdownElement} from "./md-block.js";
+   <head>
+      <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+      <script>import {URLs as MdBlockURLS, MarkdownBlock, MarkdownSpan, MarkdownElement} from "./md-block.js";
+         MdBlockURLS.Prism = "./prism.js";
+         // You can optionally also provide a Prism CSS URL:
+         MdBlockURLS.PrismCSS = "./prism.css";
+      </script>
+      <link rel="stylesheet" href="styles.css">
+      <title>Distinct Count</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="header">
+            <h1>Distinct Count</h1>
+         </div>
+         <div class="content">
+            <div class="side-navigation" id="sidebar">
+               <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="heavy_hitters.html">Heavy Hitters</a></li>
+                  <li><a href="distinctcount.html">Distinct Count</a></li>
+                  <li><a href="f2estimate.html">Second Frequency Moment</a></li>
+                  <li><a href="bloom_filter.html">Bloom Filter</a></li>
+                  <li><a href="rsv_sampling.html">Reservoir Sampling</a></li>
+               </ul>
+            </div>
+            <div class="main-content">
+               <md-block>
+                  ## Distinct Count
+                  This class provides a space and time efficient data structure (called a sketch) to estimate the number of distinct element up to a factor `(1 ± epsilon)` with probability at least `1-delta` in a data stream.
+                  To import the class, use the following:
+                  ```python
 
-    MdBlockURLS.Prism = "./prism.js";
-    // You can optionally also provide a Prism CSS URL:
-    MdBlockURLS.PrismCSS = "./prism.css";</script>
-    <link rel="stylesheet" href="styles.css">
- 
-  <title>Distinct Count</title>
+                  from streamsketchlib.distinct_count import DistinctCount
+                  
+                  ```
+                  ### Overview
+                  The update time is `O(log 1/eps)`. It supports the following operations:
+                  - insert a token to the stream.
+                  - return the estimate for number of distinct elements the stream encounters so far up to a factor `1±eps` with probability at least `1-delta`.
+                  - combine the sketches of two streams so that we can estimate the number of distinct elements of the combined stream.
+                  ### Initialization
+                  To initialize an instance of this class, we can specify the following parameters:
+                  - `delta`: controls the failure probability. The default value is `0.01`.
+                  - `epsilon`: controls the estimate's quality. The default value is `0.01`.
+                  - `seed`: the seed for randomness. The default value is `42`.
+                  - `algorithm`:
+                  -`BJKST_1` (default) : This is an implementation of the first algorithm in the paper "Counting Distinct Elements in a Data Stream" by Ziv Bar-Yossef, T. S. Jayram, Ravi Kumar, D. Sivakumar & Luca Trevisan. The data structure uses roughly `O~(1/eps^2 * log(1/delta))` memory (excluding overheads). This is currently the only implementation.
+                  For example,
+                  ```python
 
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  stream2 = DistinctCount()
 
+                  ```
+                  ### insert
+                  Insert a new token into the stream. The token must be byte-like objects. The easiest way to achieve this is to convert a token to string.
+                  For example,
+                  ```python
 
-	
-</head>
-<body>
-  <div id="sidebar">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="heavy_hitters.html">Heavy Hitters</a></li>
-      <li><a href="distinctcount.html">Distinct Count</a></li>
-      <li><a href="f2estimate.html">Second Frequency Moment</a></li>
-      <li><a href="bloom_filter.html">Bloom Filter</a></li>
-      <li><a href="rsv_sampling.html">Reservoir Sampling</a></li>
-    </ul>
-  </div>
-  
-  <div id="content">
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  stream.insert("apple")
+                  stream.insert("orange")
+                  stream.insert("apple")
 
-	
-        <md-block>
-            ## Distinct Count
+                  ```
+                  ### estimator
+                  Return the estimate of the number of distinct elements that have appeared in the stream so far up to a factor (1 ± epsilon) with probability at least 1-delta.
+                  For example,
+                  ```python
 
-            This class provides a space and time efficient data structure (called a sketch) to estimate the number of distinct element up to a factor `(1 ± epsilon)` with probability at least `1-delta` in a data stream.
-            
-            
-            To import the class, use the following:
-            
-            ```python
-            from streamsketchlib.distinct_count import DistinctCount
-            ```
-            
-            ### Overview
-            
-            The update time is `O(log 1/eps)`. It supports the following operations:
-            
-            - insert a token to the stream.
-            - return the estimate for number of distinct elements the stream encounters so far up to a factor `1±eps` with probability at least `1-delta`.
-            - combine the sketches of two streams so that we can estimate the number of distinct elements of the combined stream.
-            
-            ### Initialization
-            
-            To initialize an instance of this class, we can specify the following parameters:
-            
-            - `delta`: controls the failure probability. The default value is `0.01`.
-            - `epsilon`: controls the estimate's quality. The default value is `0.01`.
-            - `seed`: the seed for randomness. The default value is `42`.
-            - `algorithm`:
-                -`BJKST_1` (default) : This is an implementation of the first algorithm in the paper "Counting Distinct Elements in a Data Stream" by Ziv Bar-Yossef, T. S. Jayram, Ravi Kumar, D. Sivakumar & Luca Trevisan. The data structure uses roughly `O~(1/eps^2 * log(1/delta))` memory (excluding overheads). This is currently the only implementation.
-            
-             
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            stream2 = DistinctCount()
-            ```
-            
-            ### insert
-            
-            Insert a new token into the stream. The token must be byte-like objects. The easiest way to achieve this is to convert a token to string.
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            stream.insert("apple")
-            stream.insert("orange")
-            stream.insert("apple")
-            ```
-            
-            ### estimator
-            
-            Return the estimate of the number of distinct elements that have appeared in the stream so far up to a factor (1 ± epsilon) with probability at least 1-delta.
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            
-            for i in range(100, 200):
-                stream.insert(str(i))
-            
-            for i in range(150, 250):
-                stream.insert(str(i))
-            
-            print(stream.estimator())
-            
-            >>> 150
-            
-            ```
-            
-            ### merge
-            
-            Merge with another sketch with the same seed. The resulted sketch will provide answer to the combined stream.
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            stream2 = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            
-            for i in range(100, 200):
-                stream.insert(str(i))
-            
-            for i in range(150, 250):
-                stream2.insert(str(i))
-            
-            stream.merge(stream2)
-            print(stream.estimator())
-            
-            >>> 150
-            
-            ```
-            
-            ### + Operator
-            
-            If A is a sketch of some stream and B is a sketch of another stream, then A + B returns the merged sketch that provides the answer to the combined stream. In other words, A = A+B is the same as A.merge(B). 
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            stream2 = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            
-            for i in range(100, 200):
-                stream.insert(str(i))
-            
-            for i in range(150, 250):
-                stream2.insert(str(i))
-            
-            stream = stream + stream2
-            print(stream.estimator())
-            
-            >>> 150
-            
-            ```
-            
-            ### from_existing 
-            
-            Create a new sketch with similar parameters so that they can be merged later.
-            
-            For example,
-            
-            ```python
-            stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
-            stream2 = DistinctCount.from_existing(stream)
-            
-            for i in range(100, 200):
-                stream.insert(str(i))
-            
-            for i in range(150, 250):
-                stream2.insert(str(i))
-            
-            stream.merge(stream2)
-            print(stream.estimator())
-            
-            >>> 150
-            
-            ```
-        </md-block>
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  for i in range(100, 200):
+                  stream.insert(str(i))
+                  for i in range(150, 250):
+                  stream.insert(str(i))
+                  print(stream.estimator())
+                  >>> 150
 
-  </div>
-</body>
+                  ```
+                  ### merge
+                  Merge with another sketch with the same seed. The resulted sketch will provide answer to the combined stream.
+                  For example,
+                  ```python
+
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  stream2 = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  for i in range(100, 200):
+                  stream.insert(str(i))
+                  for i in range(150, 250):
+                  stream2.insert(str(i))
+                  stream.merge(stream2)
+                  print(stream.estimator())
+                  >>> 150
+
+                  ```
+                  ### + Operator
+                  If A is a sketch of some stream and B is a sketch of another stream, then A + B returns the merged sketch that provides the answer to the combined stream. In other words, A = A+B is the same as A.merge(B). 
+                  For example,
+                  ```python
+
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  stream2 = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  for i in range(100, 200):
+                  stream.insert(str(i))
+                  for i in range(150, 250):
+                  stream2.insert(str(i))
+                  stream = stream + stream2
+                  print(stream.estimator())
+                  >>> 150
+
+                  ```
+                  ### from_existing 
+                  Create a new sketch with similar parameters so that they can be merged later.
+                  For example,
+                  ```python
+
+                  stream = DistinctCount(delta=0.01, epsilon=0.05, seed=42)
+                  stream2 = DistinctCount.from_existing(stream)
+                  for i in range(100, 200):
+                  stream.insert(str(i))
+                  for i in range(150, 250):
+                  stream2.insert(str(i))
+                  stream.merge(stream2)
+                  print(stream.estimator())
+                  >>> 150
+
+                  ```
+               </md-block>
+            </div>
+         </div>
+         <div class="footer">
+            &copy; Data Sketch Library. All rights reserved.
+         </div>
+      </div>
+   </body>
 </html>
