@@ -34,7 +34,7 @@
                   ```python  
 
                   from streamsketchlib.heavy_hitters import HeavyHittersFinder 
-                  
+
                   ```  
                   ### Overview  
                   It supports the following operations:  
@@ -44,7 +44,8 @@
                   ### Initialization  
                   To initialize an instance of this class, we can specify the following parameters:  
                   -`phi`: defines the cutoff for what constitutes a heavy hitter. The default value is `0.05`.
-                  - `epsilon`: controls margin of error within which false positives are permitted. The default value is `0.02`.  
+                  - `epsilon`: controls margin of error within which false positives are permitted. The default value is `0.02`.  That is the algorithm will return
+                  all elements whose count is at least `phi m` but will not return any element whose count is less than `(phi-epsilon)m` where `m` is the total (weighted) count.
                   - `delta`: controls the failure probability. The default value is `0.01` (non-deterministic algorithms only). 
                   - `seed`: the seed for randomness. The default value is `42`.
                   - `algorithm`:	
