@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Website with Sidebar Navigation</title>
-  <style>
-    /* CSS for sidebar */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    
-    #sidebar {
-      position: fixed;
-      width: 200px;
-      height: 100%;
-      background-color: #333;
-      color: #fff;
-    }
-    
-    #sidebar ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    
-    #sidebar ul li {
-      padding: 10px;
-    }
-    
-    #sidebar ul li:hover {
-      background-color: #555;
-    }
-    
-    #content {
-      margin-left: 200px;
-      padding: 20px;
-    }
-  </style>
+  
+  <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+  <script>import {URLs as MdBlockURLS, MarkdownBlock, MarkdownSpan, MarkdownElement} from "./md-block.js";
+
+    MdBlockURLS.Prism = "./prism.js";
+    // You can optionally also provide a Prism CSS URL:
+    MdBlockURLS.PrismCSS = "./prism.css";</script>
+    <link rel="stylesheet" href="styles.css">
+ 
+  <title>Data Sketch Lib</title>
+
+
+
+
+	
 </head>
 <body>
   <div id="sidebar">
     <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="heavy_hitters.html">Heavy Hitters</a></li>
+      <li><a href="distinctcount.html">Distinct Count</a></li>
+      <li><a href="f2estimate.html">Second Frequency Moment</a></li>
+      <li><a href="bloom_filter.html">Bloom Filter</a></li>
+      <li><a href="rsv_sampling.html">Reservoir Sampling</a></li>
     </ul>
   </div>
   
   <div id="content">
-    <h1>Welcome to My Website</h1>
-    <p>This is the main content area of the website.</p>
+
+	
+        <md-block>
+        ## Data Sketch Library
+
+        This is an open-source python library that provides Python implementation of sketching algorithms and other algorithms for large data processing.
+
+        Currently, we provide some sketching and filtering algorithms such as 
+        - Heavy Hitter Finder
+        - Distinct Element Count
+        - Second Frequency Moment Estimation
+        - Bloom Filter
+        - Reservoir Sampling 
+
+        [Source Code] (https://github.com/db-gb/DataStreamSketches)
+
+        [PyPi] (https://pypi.org/project/sketchlib/?fbclid=IwAR2mCTurPTLCUL5HEWRBhWh7LNcxAowLIvTVS4rE1ynFRm8bWtWOgLF30PU)
+
+        ## Contributors:
+        - Hoa T. Vu
+        - Daniel Barnas
+
+
+
+        </md-block>
+
   </div>
 </body>
 </html>
